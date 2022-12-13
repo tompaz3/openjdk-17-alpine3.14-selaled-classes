@@ -1,0 +1,31 @@
+= openjdk:17-alpine3.14 sealed classes error
+
+This simple project demonstrates java compilation error when using https://hub.docker.com/layers/library/openjdk/17-alpine3.14/images/sha256-a996cdcc040704ec6badaf5fecf1e144c096e00231a29188596c784bcf858d05?context=explore[openjdk:17-alpine3.14] Docker image and sealed classes.
+
+
+To reproduce an error enter the project source directory and then run the following command:
+[source,shell]
+----
+docker run --rm -v $PWD:/tmp/src -w /tmp/src openjdk:17-alpine3.14 ./mvnw clean install
+----
+
+What you'll see is the compilation error:
+
+[source,shell]
+----
+[INFO] Compiling 1 source file to /tmp/src/target/classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR :
+[INFO] -------------------------------------------------------------
+[ERROR] /tmp/src/src/main/java/com/tp/samples/openjdk17sealedclass/DoesNotCompileSample.java:[5,12] sealed classes are a preview feature and are disabled by default.
+  (use --enable-preview to enable sealed classes)
+[INFO] 1 error
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  13.553 s
+[INFO] Finished at: 2022-12-13T21:57:41Z
+[INFO] ------------------------------------------------------------------------
+
+----
